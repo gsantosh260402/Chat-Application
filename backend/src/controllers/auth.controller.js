@@ -68,6 +68,9 @@ export const login = async(req , res)=>{
 
     const {email , password} = req.body;
 
+    if(!email || !password){
+        return res.status(400).json({message : "Email and password are required"});
+    }
     try{
         const user = await User.findOne({email});
         if(!user)
@@ -77,6 +80,7 @@ export const login = async(req , res)=>{
 
         // bcrypt db me stored passwordse salt nikal ta hai phir , new password ko usssi salt ke saath hash karta hai 
         // phir iss hashed password ko db me stored paasword se compare karta hai
+
         if(!isPasswordCorrect)
              return res.status(400).json({message : "Invalid Credentials"});
 
