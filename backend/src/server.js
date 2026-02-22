@@ -7,6 +7,7 @@ import messageRoutes from './routes/message.route.js';
 import path from 'path';
 import {connectDB} from "./lib/db.js"
 import cookieParser from "cookie-parser";
+import fileUpload from 'express-fileupload';
 dotenv.config();
 
 const app = express();
@@ -17,6 +18,7 @@ const PORT = process.env.PORT || 3000;
 
 app.use(express.json()); // to read req.body;
 app.use(cookieParser());
+app.use( fileUpload({ useTempFiles:true, tempFileDir:"/tmp", }) )
 
 app.use("/api/auth" , authRoutes);
 app.use("/api/messages" , messageRoutes);

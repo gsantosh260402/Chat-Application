@@ -82,6 +82,7 @@ export const login = async(req , res)=>{
         // bcrypt db me stored passwordse salt nikal ta hai phir , new password ko usssi salt ke saath hash karta hai 
         // phir iss hashed password ko db me stored paasword se compare karta hai
 
+
         if(!isPasswordCorrect)
              return res.status(400).json({message : "Invalid Credentials"});
 
@@ -109,11 +110,17 @@ export const logout = (_ , res)=>{
 export const updateProfile = async(req , res) =>{
     try{
 
-       const {profilePic} = req.body;
+       //const {profilePic} = req.body;
+       const profilePic = req.files?.profilePic;
        if(!profilePic) return res.status(400).json({message : "Profile pic is required"});
-       
+
        const userId = req.user._id;
-       const uploadResponse = await cloudinary.uploader(profilePic);
+       //const uploadResponse = await cloudinary.uploader(profilePic);
+
+       const uploadResponse = await cloudinary.uploader.upload(
+          profilePic.tempFilePath
+       );
+
 
        const updatedUser = await User.findByIdAndUpdate(userId , {profilePic : uploadResponse.secure_url} , {new : true});
 
