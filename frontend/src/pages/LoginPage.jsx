@@ -5,7 +5,7 @@ import { MessageCircleIcon, LockIcon, MailIcon, LoaderIcon } from "lucide-react"
 import { Link } from "react-router";
 
 
- function LoginPage() {
+function LoginPage() {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const { login, isLoggingIn } = useAuthStore();
 
