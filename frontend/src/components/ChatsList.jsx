@@ -5,7 +5,7 @@ import NoChatsFound from './NoChatsFound';
 
 function ChatsList() {
 
-  const {getMyChatPartners , chats , isUserLoading , setSelectedUser} = useChatStore();
+  const {getMyChatPartners , chats , isUserLoading , setSelectedUser , selectedUser} = useChatStore();
 
   useEffect(()=>{
       getMyChatPartners();  
@@ -19,7 +19,7 @@ function ChatsList() {
        {chats.map((chat) => (
             <div 
               key={chat._id}
-              className="bg-cyan-500/10 p-4 rounded-lg cursor-pointer hover:bg-cyan-500/20 transition-colors"
+              className={`bg-cyan-500/10 p-4 rounded-lg cursor-pointer hover:bg-cyan-500/20 transition-colors  ${selectedUser?._id === chat._id ? "bg-cyan-500/20" : "bg-cyan-500/10"}`}
               onClick={()=> setSelectedUser(chat)}
             >
               <div className="flex items-center gap-3">
